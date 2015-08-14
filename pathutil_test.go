@@ -27,3 +27,23 @@ func TestExpand(t *testing.T) {
 		}
 	}
 }
+
+func TestExists(t *testing.T) {
+	usr, _ := user.Current()
+	home := usr.HomeDir
+	cases := []struct {
+		in string
+		want bool
+	}{
+		{"", false},
+		{home, true},
+		{"nonsense", false},
+	}
+	for _, c := range cases {
+		fmt.Printf("Testing Exists(%s)\n", c.in)
+		got := Exists(c.in)
+		if got != c.want {
+			t.Errorf("Exists(%q) wanted %q, got %q", c.in, c.want, got)
+		}
+	}
+}
