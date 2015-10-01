@@ -26,7 +26,10 @@ func Expand(path string) string {
 		return path
 	}
 	if path[:2] == "~/" {
-		usr, _ := user.Current()
+		usr, err := user.Current()
+        if err != nil {
+            panic(err)
+        }
 		home := usr.HomeDir
 		path = pathlib.Join(home, path[2:])
 	}
