@@ -3,13 +3,12 @@ package pathutil
 import (
 	pathlib "path"
 	"fmt"
-	"os/user"
+    "os"
 	"testing"
 )
 
 func TestExpand(t *testing.T) {
-	usr, _ := user.Current()
-	home := usr.HomeDir
+	home := os.Getenv("HOME")
 	cases := []struct {
 		in, want string
 	}{
@@ -29,8 +28,7 @@ func TestExpand(t *testing.T) {
 }
 
 func TestExists(t *testing.T) {
-	usr, _ := user.Current()
-	home := usr.HomeDir
+	home := os.Getenv("HOME")
 	cases := []struct {
 		in string
 		want bool

@@ -4,7 +4,6 @@ package pathutil
 
 import (
 	"os"
-	"os/user"
 	pathlib "path"
 )
 
@@ -26,8 +25,7 @@ func Expand(path string) string {
 		return path
 	}
 	if path[:2] == "~/" {
-		usr, _ := user.Current()
-		home := usr.HomeDir
+        home := os.Getenv("HOME")
 		path = pathlib.Join(home, path[2:])
 	}
 	return path
